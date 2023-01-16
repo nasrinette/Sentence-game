@@ -1,0 +1,947 @@
+#fortext.kv
+#for hexadecimal colors
+#:import utils kivy.utils
+ScreenManager:
+    MenuScreen:
+    RulesScreen:
+    SettingsScreen:
+    AboutScreen:
+    ProfileScreen1:
+    PlayersScreen1:
+    ProfileScreen2:
+    PlayersScreen2:
+    ProfileScreen3:
+    PlayersScreen3:
+    ProfileScreen4:
+    PlayersScreen4:
+    ProfileScreen5:
+    PlayersScreen5:
+    Sentence:
+<Label>
+    color: app.theme_cls.primary_color
+<MenuScreen>:
+
+    name : 'menu'
+    MDCard:
+        size_hint : None,None
+        size : 300, 400
+        pos_hint : {"center_x": 0.5,"center_y" : 0.5}
+        elevation: 10
+        padding : 25
+        spacing : 25
+        orientation : 'vertical'
+        MDLabel:
+            id : play_label
+            text : "Welcome!"
+            font_size : 40
+            halign : 'center'
+            size_hint_y : None
+            height: self.texture_size[1]
+            padding_y: 15
+        MDRoundFlatButton:
+            text:"START"
+            font_size: 12
+            pos_hint:{"center_x":0.5}
+            on_press:
+                root.manager.current = 'profile1'
+                root.manager.transition.direction= "up"
+        MDRoundFlatButton:
+            text:"RULES"
+            font_size: 12
+            pos_hint:{"center_x":0.5}
+            on_press:
+                root.manager.current = 'rules'
+                root.manager.transition.direction= "up"
+        MDRoundFlatButton:
+            text:"SETTINGS"
+            font_size: 12
+            pos_hint:{"center_x":0.5}
+            on_press:
+                root.manager.current = 'settings'
+                root.manager.transition.direction= "down"
+        MDRoundFlatButton:
+            text:"ABOUT"
+            font_size: 12
+            pos_hint:{"center_x":0.5}
+            on_press:
+                root.manager.current = 'about'
+                root.manager.transition.direction= "right"
+        MDRoundFlatButton:
+            text:"EXIT"
+            font_size: 12
+            pos_hint:{"center_x":0.5}
+            on_press: quit()
+        Widget:
+            size_hint_y: None
+            height: 30
+
+<RulesScreen>:
+    name: 'rules'
+    MDCard:
+        size_hint : None,None
+        size : 300, 400
+        pos_hint : {"center_x": 0.5,"center_y" : 0.5}
+        elevation: 10
+        padding : 25
+        spacing : 25
+        orientation : 'vertical'
+        MDLabel:
+            text: 'RULES FOR THE GAME'
+            halign: 'center'
+        MDLabel:
+            text: 'Game is played with 5 players. Answer each question with different answers. All the answers will be shuffled randomly and in the end you will have many funny sentences'
+            halign: 'center'
+        MDRectangleFlatButton:
+            text: 'Back'
+            pos_hint: {'center_x':0.5,'center_y':0.1}
+            on_press:
+                root.manager.current = 'menu'
+                root.manager.transition.direction= "right"
+
+<SettingsScreen>:
+    name: 'settings'
+    MDSwitch:
+        pos_hint: {'center_x':0.5,'center_y':0.5}
+        on_active: app.on_switch_active(self.active)
+    MDLabel:
+        text: 'Light Mode'
+        pos_hint: {'center_x':0.42,'center_y':0.5}
+        halign: 'center'
+        font_style: 'Subtitle2'
+    MDLabel:
+        text: 'Dark Mode'
+        pos_hint: {'center_x':1.05,'center_y':0.5}
+        haligh: 'center'
+        font_style: 'Subtitle2'
+    MDRectangleFlatButton:
+        text:'Go back to main menu'
+        pos_hint: {'center_x':0.5,'center_y':0.4}
+        on_press:
+            root.manager.current = 'menu'
+            root.manager.transition.direction= "right"
+
+<AboutScreen>:
+    name:'about'
+    MDCard:
+        size_hint : None,None
+        size : 300, 400
+        pos_hint : {"center_x": 0.5,"center_y" : 0.5}
+        elevation: 10
+        padding : 25
+        spacing : 25
+        orientation : 'vertical'
+        MDLabel:
+            text: 'Creators of the game:'
+            halign: 'center'
+        MDLabel:
+            text: 'Hajiyeva Parvin,\n Abdullazada Nijat,\n Nasirova Nazrin,\n Babazada Yasmin'
+            halign: 'center'
+        MDLabel:
+            text: 'Created for Study Project'
+            halign: 'center'
+        MDRoundFlatButton:
+            text:"Back"
+            font_size: 12
+            pos_hint:{"center_x":0.5}
+            on_press:
+                root.manager.current = 'menu'
+                root.manager.transition.direction= "left"
+<ProfileScreen1>:
+
+    name: 'profile1'
+    MDCard:
+        size_hint : None,None
+        size : 300, 400
+        pos_hint : {"center_x": 0.5,"center_y" : 0.5}
+        elevation: 10
+        padding : 25
+        spacing : 25
+        orientation : 'vertical'
+
+        MDTextField:
+            id:  data
+            on_text: root.manager.get_screen("player1").ids.first.text = self.text
+            hint_text: "Enter name for player 1"
+            required: True
+            max_text_length: 12
+            icon_right: "account-key"
+            icon_right_color: utils.get_color_from_hex('#fc4e77')
+            pos_hint:{'center_x': 0.5, 'center_y': 0.5}
+            size_hint_x:None
+            helper_text:"Example: Mike"
+            line_color_focus: utils.get_color_from_hex('#fc4e77')
+            helper_text_mode:"on_focus"
+            width:200
+            line_color_normal: utils.get_color_from_hex('#fc4e77')
+
+
+        MDRectangleFlatButton:
+            text:'Save'
+            text_color: utils.get_color_from_hex('#fc4e77')
+            pos_hint: {'center_x':0.5}
+            on_press:
+                app.disable(data.text,root,'player1')
+        MDRectangleFlatButton:
+            text: 'Back'
+            text_color: utils.get_color_from_hex('#fc4e77')
+            pos_hint: {'center_x':0.5}
+            on_press:
+                root.manager.current = 'menu'
+                root.manager.transition.direction= "right"
+
+<ProfileScreen2>:
+    name: 'profile2'
+    MDCard:
+        size_hint : None,None
+        size : 300, 400
+        pos_hint : {"center_x": 0.5,"center_y" : 0.5}
+        elevation: 10
+        padding : 25
+        spacing : 25
+        orientation : 'vertical'
+        MDTextField:
+            id:  data2
+            on_text: root.manager.get_screen("player2").ids.second.text = self.text
+            hint_text: "Enter name for player 2"
+            icon_right: "account-key"
+            icon_right_color: utils.get_color_from_hex('#ffa41c')
+            required: True
+            max_text_length: 12
+            pos_hint:{'center_x': 0.5, 'center_y': 0.5}
+            size_hint_x:None
+            helper_text:"Example: Mike"
+            line_color_focus: utils.get_color_from_hex('#ffa41c')
+            helper_text_mode:"on_focus"
+            width:200
+            line_color_normal: utils.get_color_from_hex('#ffa41c')
+
+
+        MDRectangleFlatButton:
+            text:'Save'
+            text_color: utils.get_color_from_hex('#ffa41c')
+            pos_hint: {'center_x':0.5}
+            on_press:
+                app.disable(data2.text,root,'player2')
+        MDRectangleFlatButton:
+            text: 'Back'
+            text_color: utils.get_color_from_hex('#ffa41c')
+            pos_hint: {'center_x':0.5}
+            on_press:
+                root.manager.current = 'player1'
+                root.manager.transition.direction= "right"
+
+
+<ProfileScreen3>:
+    name: 'profile3'
+    MDCard:
+        size_hint : None,None
+        size : 300, 400
+        pos_hint : {"center_x": 0.5,"center_y" : 0.5}
+        elevation: 10
+        padding : 25
+        spacing : 25
+        orientation : 'vertical'
+        MDTextField:
+            id:  data3
+            on_text: root.manager.get_screen("player3").ids.third.text = self.text
+            hint_text: "Enter a name for player 3"
+            icon_right: "account-key"
+            icon_right_color: utils.get_color_from_hex('#bc20c7')
+            required: True
+            max_text_length: 12
+            pos_hint:{'center_x': 0.5, 'center_y': 0.5}
+            size_hint_x:None
+            helper_text:"Example: Mike"
+            line_color_focus: utils.get_color_from_hex('#bc20c7')
+            helper_text_mode:"on_focus"
+            width:200
+            line_color_normal: utils.get_color_from_hex('#bc20c7')
+
+        MDRectangleFlatButton:
+            text:'Save'
+            text_color: utils.get_color_from_hex('#bc20c7')
+            pos_hint: {'center_x':0.5}
+            on_press:
+                app.disable(data3.text,root,'player3')
+        MDRectangleFlatButton:
+            text: 'Back'
+            text_color: utils.get_color_from_hex('#bc20c7')
+            pos_hint: {'center_x':0.5}
+            on_press:
+                root.manager.current = 'player2'
+                root.manager.transition.direction= "right"
+<ProfileScreen4>:
+    name: 'profile4'
+    MDCard:
+        size_hint : None,None
+        size : 300, 400
+        pos_hint : {"center_x": 0.5,"center_y" : 0.5}
+        elevation: 10
+        padding : 25
+        spacing : 25
+        orientation : 'vertical'
+        MDTextField:
+            id:  data4
+            on_text: root.manager.get_screen("player4").ids.forth.text = self.text
+            hint_text: "Enter a name for player 4"
+            icon_right: "account-key"
+            icon_right_color: utils.get_color_from_hex('#32a858')
+            required: True
+            max_text_length: 12
+            pos_hint:{'center_x': 0.5, 'center_y': 0.5}
+            size_hint_x:None
+            helper_text:"Example: Mike"
+            line_color_focus: utils.get_color_from_hex('#32a858')
+            helper_text_mode:"on_focus"
+            width:200
+            line_color_normal: utils.get_color_from_hex('#32a858')
+
+        MDRectangleFlatButton:
+            text:'Save'
+            text_color: utils.get_color_from_hex('#32a858')
+            pos_hint: {'center_x':0.5}
+            on_press:
+                app.disable(data4.text,root,'player4')
+        MDRectangleFlatButton:
+            text: 'Back'
+            text_color: utils.get_color_from_hex('#32a858')
+            pos_hint: {'center_x':0.5}
+            on_press:
+                root.manager.current = 'player3'
+                root.manager.transition.direction = 'right'
+
+<ProfileScreen5>:
+    name: 'profile5'
+    MDCard:
+        size_hint : None,None
+        size : 300, 400
+        pos_hint : {"center_x": 0.5,"center_y" : 0.5}
+        elevation: 10
+        padding : 25
+        spacing : 25
+        orientation : 'vertical'
+        MDTextField:
+            id:  data5
+            on_text: root.manager.get_screen("player5").ids.fifth.text = self.text
+            hint_text: "Enter a name for player 5"
+            icon_right: "account-key"
+            icon_right_color: utils.get_color_from_hex('#c94208')
+            required: True
+            max_text_length: 12
+            pos_hint:{'center_x': 0.5, 'center_y': 0.5}
+            size_hint_x:None
+            helper_text:"Example: Mike"
+            line_color_focus: utils.get_color_from_hex('#c94208')
+            helper_text_mode:"on_focus"
+            width:200
+            line_color_normal: utils.get_color_from_hex('#c94208')
+
+        MDRectangleFlatButton:
+            text:'Save'
+            text_color: utils.get_color_from_hex('#c94208')
+            pos_hint: {'center_x':0.5}
+            on_press:
+                app.disable(data5.text,root,'player5')
+        MDRectangleFlatButton:
+            text: 'Back'
+            text_color: utils.get_color_from_hex('#c94208')
+            pos_hint: {'center_x':0.5}
+            on_press:
+                root.manager.current = 'player4'
+                root.manager.transition.direction= "right"
+
+<PlayersScreen1>:
+    name: 'player1'
+    Label:
+        color: utils.get_color_from_hex('#fc4e77')
+        id: first
+        pos_hint: {"x":0.001, "y":0.4}
+        font_size: '30sp'
+        italic: True
+    MDRectangleFlatButton:
+        text: 'Back'
+        text_color: utils.get_color_from_hex('#fc4e77')
+        pos_hint: {'center_x':0.25,'center_y':0.2}
+        on_press:
+            root.manager.current = 'profile1'
+            root.manager.transition.direction= "right"
+    MDRectangleFlatButton:
+        text:'Next'
+        text_color: utils.get_color_from_hex('#fc4e77')
+        pos_hint:{'center_x': 0.75, 'center_y': 0.2}
+        on_press:
+            app.disable_layout(root,'profile2',who.text,whom.text,whatdoes.text,when.text,where.text)
+
+    GridLayout:
+        cols: 1
+        pos: 0,0
+        size: root.width , root.height
+        BoxLayout:
+            orientation: "vertical"
+            size: root.width, root.height
+            spacing: 0
+            padding: 140
+
+            MDLabel:
+                text: "Who?"
+                color: utils.get_color_from_hex('#fc4e77')
+                bold: True
+            MDTextField:
+                line_color_normal: utils.get_color_from_hex('#fc4e77')
+                line_color_focus:  utils.get_color_from_hex('#fc4e77')
+                id: who
+                required: True
+                on_text: root.manager.get_screen("sentence").ids.who1.text = self.text
+                width: 400
+            MDLabel:
+                text: "With whom?"
+                color: utils.get_color_from_hex('#fc4e77')
+                bold: True
+            MDTextField:
+                line_color_normal: utils.get_color_from_hex('#fc4e77')
+                line_color_focus:  utils.get_color_from_hex('#fc4e77')
+                id: whom
+                required: True
+                text: "with "
+                on_text: root.manager.get_screen("sentence").ids.whom1.text = self.text
+            MDLabel:
+                text: "What do they do?"
+                color:  utils.get_color_from_hex('#fc4e77')
+                bold: True
+            MDTextField:
+                line_color_normal: utils.get_color_from_hex('#fc4e77')
+                line_color_focus:  utils.get_color_from_hex('#fc4e77')
+                required: True
+                id: whatdoes
+                on_text: root.manager.get_screen("sentence").ids.whatdoes1.text = self.text
+            MDLabel:
+                text: "When?"
+                color:  utils.get_color_from_hex('#fc4e77')
+                bold: True
+            MDTextField:
+                line_color_normal: utils.get_color_from_hex('#fc4e77')
+                line_color_focus:  utils.get_color_from_hex('#fc4e77')
+                required: True
+                id: when
+                on_text: root.manager.get_screen("sentence").ids.when1.text = self.text
+            MDLabel:
+                text: "Where?"
+                color: utils.get_color_from_hex('#fc4e77')
+                bold: True
+            MDTextField:
+                line_color_normal: utils.get_color_from_hex('#fc4e77')
+                line_color_focus:  utils.get_color_from_hex('#fc4e77')
+                required: True
+                id: where
+                on_text: root.manager.get_screen("sentence").ids.where1.text = self.text
+
+
+<PlayersScreen2>:
+    name: 'player2'
+
+    Label:
+        id: second
+        color: utils.get_color_from_hex('#ffa41c')
+        pos_hint: {"x":0.001, "y":0.4}
+        font_size: '30sp'
+        italic: True
+    MDRectangleFlatButton:
+        text: 'Back'
+        text_color: utils.get_color_from_hex('#ffa41c')
+        pos_hint: {'center_x':0.25,'center_y':0.2}
+        on_press:
+            root.manager.current = 'profile2'
+            root.manager.transition.direction= "right"
+    MDRectangleFlatButton:
+        text:'Next'
+        text_color: utils.get_color_from_hex('#ffa41c')
+        pos_hint:{'center_x': 0.75, 'center_y': 0.2}
+        on_press:
+            app.disable_layout(root,'profile3',who.text,whom.text,whatdoes.text,when.text,where.text)
+
+    GridLayout:
+        cols: 1
+        pos: 0,0
+        size: root.width , root.height
+        BoxLayout:
+            orientation: "vertical"
+            size: root.width, root.height
+            spacing: 0
+            padding: 140
+            MDLabel:
+                text: "Who?"
+                color: utils.get_color_from_hex('#ffa41c')
+                bold: True
+            MDTextField:
+                id: who
+                line_color_normal: utils.get_color_from_hex('#ffa41c')
+                line_color_focus:  utils.get_color_from_hex('#ffa41c')
+                required: True
+                on_text: root.manager.get_screen("sentence").ids.who2.text = self.text
+                multiline: False
+                width: 400
+            MDLabel:
+                text: "With whom?"
+                color: utils.get_color_from_hex('#ffa41c')
+                bold: True
+            MDTextField:
+                line_color_normal: utils.get_color_from_hex('#ffa41c')
+                line_color_focus:  utils.get_color_from_hex('#ffa41c')
+                required: True
+                id: whom
+                text: "with "
+                on_text: root.manager.get_screen("sentence").ids.whom2.text = self.text
+                multiline: False
+            MDLabel:
+                text: "What do they do?"
+                color: utils.get_color_from_hex('#ffa41c')
+                bold: True
+            MDTextField:
+                line_color_normal: utils.get_color_from_hex('#ffa41c')
+                line_color_focus:  utils.get_color_from_hex('#ffa41c')
+                required: True
+                id: whatdoes
+                on_text: root.manager.get_screen("sentence").ids.whatdoes2.text = self.text
+                multiline: False
+            MDLabel:
+                text: "When?"
+                color: utils.get_color_from_hex('#ffa41c')
+                bold: True
+            MDTextField:
+                line_color_normal: utils.get_color_from_hex('#ffa41c')
+                line_color_focus:  utils.get_color_from_hex('#ffa41c')
+                required: True
+                id: when
+                on_text: root.manager.get_screen("sentence").ids.when2.text = self.text
+                multiline: False
+            MDLabel:
+                text: "Where?"
+                color: utils.get_color_from_hex('#ffa41c')
+                bold: True
+            MDTextField:
+                line_color_normal: utils.get_color_from_hex('#ffa41c')
+                line_color_focus:  utils.get_color_from_hex('#ffa41c')
+                required: True
+                id: where
+                on_text: root.manager.get_screen("sentence").ids.where2.text = self.text
+                multiline: False
+
+<PlayersScreen3>:
+    name: 'player3'
+    Label:
+        color: utils.get_color_from_hex('#bc20c7')
+        id: third
+        pos_hint: {"x":0.001, "y":0.4}
+        font_size: '30sp'
+        italic: True
+    MDRectangleFlatButton:
+        text: 'Back'
+        text_color: utils.get_color_from_hex('#bc20c7')
+        pos_hint: {'center_x':0.25,'center_y':0.2}
+        on_press:
+            root.manager.current = 'profile3'
+            root.manager.transition.direction= "right"
+    MDRectangleFlatButton:
+        text:'Next'
+        text_color: utils.get_color_from_hex('#bc20c7')
+        pos_hint:{'center_x': 0.75, 'center_y': 0.2}
+        on_press:
+            app.disable_layout(root,'profile4',who.text,whom.text,whatdoes.text,when.text,where.text)
+
+    GridLayout:
+        cols: 1
+        pos: 0,0
+        size: root.width , root.height
+        BoxLayout:
+            orientation: "vertical"
+            size: root.width, root.height
+            spacing: 0
+            padding: 140
+            MDLabel:
+                color: utils.get_color_from_hex('#bc20c7')
+                text: "Who?"
+                bold: True
+            MDTextField:
+                id: who
+                line_color_normal: utils.get_color_from_hex('#bc20c7')
+                line_color_focus:  utils.get_color_from_hex('#bc20c7')
+                required: True
+                on_text: root.manager.get_screen("sentence").ids.who3.text = self.text
+                multiline: False
+                width: 400
+            MDLabel:
+                color: utils.get_color_from_hex('#bc20c7')
+                text: "With whom?"
+                bold: True
+            MDTextField:
+                line_color_normal: utils.get_color_from_hex('#bc20c7')
+                line_color_focus:  utils.get_color_from_hex('#bc20c7')
+                required: True
+                id: whom
+                text: "with "
+                on_text: root.manager.get_screen("sentence").ids.whom3.text = self.text
+                multiline: False
+            MDLabel:
+                text: "What do they do?"
+                color: utils.get_color_from_hex('#bc20c7')
+                bold: True
+            MDTextField:
+                line_color_normal: utils.get_color_from_hex('#bc20c7')
+                line_color_focus:  utils.get_color_from_hex('#bc20c7')
+                required: True
+                id: whatdoes
+                on_text: root.manager.get_screen("sentence").ids.whatdoes3.text = self.text
+                multiline: False
+            MDLabel:
+                text: "When?"
+                color: utils.get_color_from_hex('#bc20c7')
+                bold: True
+            MDTextField:
+                line_color_normal: utils.get_color_from_hex('#bc20c7')
+                line_color_focus:  utils.get_color_from_hex('#bc20c7')
+                required: True
+                id: when
+                on_text: root.manager.get_screen("sentence").ids.when3.text = self.text
+                multiline: False
+            MDLabel:
+                text: "Where?"
+                color: utils.get_color_from_hex('#bc20c7')
+                bold: True
+            MDTextField:
+                line_color_normal: utils.get_color_from_hex('#bc20c7')
+                line_color_focus:  utils.get_color_from_hex('#bc20c7')
+                required: True
+                id: where
+                on_text: root.manager.get_screen("sentence").ids.where3.text = self.text
+                multiline: False
+
+
+<PlayersScreen4>:
+    name: 'player4'
+    Label:
+        color: utils.get_color_from_hex('#32a858')
+        id: forth
+        pos_hint: {"x":0.001, "y":0.4}
+        font_size: '30sp'
+        italic: True
+    MDRectangleFlatButton:
+        text: 'Back'
+        text_color: utils.get_color_from_hex('#32a858')
+        pos_hint: {'center_x':0.25,'center_y':0.2}
+        on_press:
+            root.manager.current = 'profile4'
+            root.manager.transition.direction= "right"
+    MDRectangleFlatButton:
+        text:'Next'
+        text_color: utils.get_color_from_hex('#32a858')
+        pos_hint:{'center_x': 0.75, 'center_y': 0.2}
+        on_press:
+            app.disable_layout(root,'profile5',who.text,whom.text,whatdoes.text,when.text,where.text)
+    GridLayout:
+        cols: 1
+        pos: 0,0
+        size: root.width , root.height
+        BoxLayout:
+            orientation: "vertical"
+            size: root.width, root.height
+            spacing: 0
+            padding: 140
+            MDLabel:
+                text: "Who?"
+                color: utils.get_color_from_hex('#32a858')
+                bold: True
+            MDTextField:
+                id: who
+                line_color_normal: utils.get_color_from_hex('#32a858')
+                line_color_focus:  utils.get_color_from_hex('#32a858')
+                required: True
+                on_text: root.manager.get_screen("sentence").ids.who4.text = self.text
+                multiline: False
+                width: 400
+            MDLabel:
+                text: "With whom?"
+                color: utils.get_color_from_hex('#32a858')
+                bold: True
+            MDTextField:
+                id: whom
+                text: "with "
+                line_color_normal: utils.get_color_from_hex('#32a858')
+                line_color_focus:  utils.get_color_from_hex('#32a858')
+                required: True
+                on_text: root.manager.get_screen("sentence").ids.whom4.text = self.text
+                multiline: False
+            MDLabel:
+                text: "What do they do?"
+                color: utils.get_color_from_hex('#32a858')
+                bold: True
+            MDTextField:
+                id: whatdoes
+                line_color_normal: utils.get_color_from_hex('#32a858')
+                line_color_focus:  utils.get_color_from_hex('#32a858')
+                required: True
+                on_text: root.manager.get_screen("sentence").ids.whatdoes4.text = self.text
+                multiline: False
+            MDLabel:
+                text: "When?"
+                color: utils.get_color_from_hex('#32a858')
+                bold: True
+            MDTextField:
+                id: when
+                line_color_normal: utils.get_color_from_hex('#32a858')
+                line_color_focus:  utils.get_color_from_hex('#32a858')
+                required: True
+                on_text: root.manager.get_screen("sentence").ids.when4.text = self.text
+                multiline: False
+            MDLabel:
+                text: "Where?"
+                color: utils.get_color_from_hex('#32a858')
+                bold: True
+            MDTextField:
+                id: where
+                line_color_normal: utils.get_color_from_hex('#32a858')
+                line_color_focus:  utils.get_color_from_hex('#32a858')
+                required: True
+                on_text: root.manager.get_screen("sentence").ids.where4.text = self.text
+                multiline: False
+
+<PlayersScreen5>:
+    name: 'player5'
+    Label:
+        id: fifth
+        color: utils.get_color_from_hex('#c94208')
+        pos_hint: {"x":0.001, "y":0.4}
+        font_size: '30sp'
+        italic: True
+    MDRectangleFlatButton:
+        text: 'Back'
+        text_color: utils.get_color_from_hex('#c94208')
+        pos_hint: {'center_x':0.25,'center_y':0.2}
+        on_press:
+            root.manager.current = 'profile5'
+            root.manager.transition.direction= "right"
+    MDRectangleFlatButton:
+        text:'Results'
+        text_color: utils.get_color_from_hex('#c94208')
+        pos_hint:{'center_x': 0.75, 'center_y': 0.2}
+        on_press:
+            app.disable_layout(root,'sentence',who.text,whom.text,whatdoes.text,when.text,where.text)
+    GridLayout:
+        cols: 1
+        pos: 0,0
+        size: root.width , root.height
+        BoxLayout:
+            orientation: "vertical"
+            size: root.width, root.height
+            spacing: 0
+            padding: 140
+            MDLabel:
+                text: "Who?"
+                color: utils.get_color_from_hex('#c94208')
+                bold: True
+            MDTextField:
+                id: who
+                line_color_normal: utils.get_color_from_hex('#c94208')
+                line_color_focus:  utils.get_color_from_hex('#c94208')
+                required: True
+                on_text: root.manager.get_screen("sentence").ids.who5.text = self.text
+            MDLabel:
+                text: "With whom?"
+                color: utils.get_color_from_hex('#c94208')
+                bold: True
+            MDTextField:
+                id: whom
+                text: "with "
+                line_color_normal: utils.get_color_from_hex('#c94208')
+                line_color_focus:  utils.get_color_from_hex('#c94208')
+                required: True
+                on_text: root.manager.get_screen("sentence").ids.whom5.text = self.text
+            MDLabel:
+                text: "What do they do?"
+                color: utils.get_color_from_hex('#c94208')
+                bold: True
+            MDTextField:
+                id: whatdoes
+                line_color_normal: utils.get_color_from_hex('#c94208')
+                line_color_focus:  utils.get_color_from_hex('#c94208')
+                required: True
+                on_text: root.manager.get_screen("sentence").ids.whatdoes5.text = self.text
+            MDLabel:
+                text: "When?"
+                color: utils.get_color_from_hex('#c94208')
+                bold: True
+            MDTextField:
+                id: when
+                line_color_normal: utils.get_color_from_hex('#c94208')
+                line_color_focus:  utils.get_color_from_hex('#c94208')
+                required: True
+                on_text: root.manager.get_screen("sentence").ids.when5.text = self.text
+            MDLabel:
+                text: "Where?"
+                color: utils.get_color_from_hex('#c94208')
+                bold: True
+            MDTextField:
+                id: where
+                line_color_normal: utils.get_color_from_hex('#c94208')
+                line_color_focus:  utils.get_color_from_hex('#c94208')
+                required: True
+                on_text: root.manager.get_screen("sentence").ids.where5.text = self.text
+
+
+<Sentence>:
+    name:'sentence'
+    MDLabel:
+        text: "YOUR SENTENCES!"
+        text_color: 0, 0, 1, 1
+        bold: True
+        pos_hint:{'center_x':0.88,'center_y':0.91}
+    MDRectangleFlatButton:
+        text: 'Back'
+        pos_hint: {'center_x':0.25,'center_y':0.2}
+        on_press:
+            root.manager.current = 'player5'
+            root.manager.transition.direction= "right"
+    MDRectangleFlatButton:
+        text: 'Play Again'
+        pos_hint: {'center_x':0.75,'center_y':0.2}
+        on_press:
+            root.manager.get_screen("player1").ids.who.text = ''
+            root.manager.get_screen("player1").ids.whom.text = 'with '
+            root.manager.get_screen("player1").ids.whatdoes.text = ''
+            root.manager.get_screen("player1").ids.when.text = ''
+            root.manager.get_screen("player1").ids.where.text = ''
+            root.manager.get_screen("player2").ids.who.text = ''
+            root.manager.get_screen("player2").ids.whom.text = 'with '
+            root.manager.get_screen("player2").ids.whatdoes.text = ''
+            root.manager.get_screen("player2").ids.when.text = ''
+            root.manager.get_screen("player2").ids.where.text = ''
+            root.manager.get_screen("player3").ids.who.text = ''
+            root.manager.get_screen("player3").ids.whom.text = 'with '
+            root.manager.get_screen("player3").ids.whatdoes.text = ''
+            root.manager.get_screen("player3").ids.when.text = ''
+            root.manager.get_screen("player3").ids.where.text = ''
+            root.manager.get_screen("player4").ids.who.text = ''
+            root.manager.get_screen("player4").ids.whom.text = 'with '
+            root.manager.get_screen("player4").ids.whatdoes.text = ''
+            root.manager.get_screen("player4").ids.when.text = ''
+            root.manager.get_screen("player4").ids.where.text = ''
+            root.manager.get_screen("player5").ids.who.text = ''
+            root.manager.get_screen("player5").ids.whom.text = 'with '
+            root.manager.get_screen("player5").ids.whatdoes.text = ''
+            root.manager.get_screen("player5").ids.when.text = ''
+            root.manager.get_screen("player5").ids.where.text = ''
+            root.manager.get_screen("profile1").ids.data.text = ''
+            root.manager.get_screen("profile2").ids.data2.text = ''
+            root.manager.get_screen("profile3").ids.data3.text = ''
+            root.manager.get_screen("profile4").ids.data4.text = ''
+            root.manager.get_screen("profile5").ids.data5.text = ''
+            root.manager.current = 'menu'
+            root.manager.transition.direction= "left"
+
+    StackLayout:
+        orientation :'lr-tb'
+        cols:5
+        rows:5
+        background_color:  utils.get_color_from_hex('#ff3da1')
+        size_hint: .8, .6
+        pos_hint: {'x': .1, 'y': .25 }
+
+        MDLabel:
+            id: who5
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: whom2
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: whatdoes3
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: when1
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: where4
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: who3
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: whom4
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: whatdoes1
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: when5
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: where2
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: who4
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: whom3
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: whatdoes5
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: when2
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: where1
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: who1
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: whom5
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: whatdoes2
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: when4
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: where3
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: who2
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: whom1
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: whatdoes4
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: when3
+            font_size: '12sp'
+            size_hint :(.2, .21)
+        MDLabel:
+            id: where5
+            font_size: '12sp'
+            size_hint :(.2, .21)
